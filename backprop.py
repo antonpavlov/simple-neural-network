@@ -3,11 +3,21 @@ from data_prep import features, targets, features_test, targets_test
 
 np.random.seed(21)
 
+
 def sigmoid(x):
     """
     Calculate sigmoid
     """
     return 1 / (1 + np.exp(-x))
+
+
+def sigmoid_prime(x):
+    """
+    # Derivative of the sigmoid function
+    :param x: Sum of product between inputs and weights
+    :return: Activation
+    """
+    return sigmoid(x) * (1 - sigmoid(x))
 
 
 # Hyperparameters
@@ -31,7 +41,6 @@ for e in range(epochs):
         # TODO: Calculate the output
         hidden_input = np.dot(x, weights_input_hidden)
         hidden_output = sigmoid(hidden_input)
-
         output = sigmoid(np.dot(hidden_output,
                                 weights_hidden_output))
 
@@ -43,8 +52,7 @@ for e in range(epochs):
         output_error = error * output * (1 - output)
 
         # TODO: propagate errors to hidden layer
-        hidden_error = np.dot(output_error, weights_hidden_output) * \
-                       hidden_output * (1 - hidden_output)
+        hidden_error = np.dot(output_error, weights_hidden_output) * hidden_output * (1 - hidden_output)
 
         # TODO: Update the change in weights
         del_w_hidden_output += output_error * hidden_output
@@ -53,6 +61,7 @@ for e in range(epochs):
     # TODO: Update weights
     weights_input_hidden += learnrate * del_w_input_hidden / n_records
     weights_hidden_output += learnrate * del_w_hidden_output / n_records
+    # hidden_error*inputs[:,None]
 
     # Printing out the mean square error on the training set
     if e % (epochs / 10) == 0:
