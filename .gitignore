@@ -98,7 +98,24 @@ ENV/
 /site
 
 # mypy
-.mypy_cache/
+.mypy_cache/*
 
 # PyCharm
-.idea/
+.idea/*
+
+# VScode
+.vscode/*
+
+# Cmake
+CMakeCache.txt
+CMakeFiles/*
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# Results of compilation
+data_prep
+backprop
+gradient
